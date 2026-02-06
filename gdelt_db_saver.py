@@ -2,6 +2,8 @@ import sqlite3
 # from gdelt_parser import GdeltParser
 from datetime import timedelta
 from telegram_message import send_message
+from telegram_poster import send_media_post_tg
+from read_pages import process_url
 from datetime import datetime
 import config
 import time
@@ -113,7 +115,9 @@ class GdeltDBSaver:
                 self.c.execute('UPDATE gdelt_data SET is_posted = "posted" WHERE rowid = ?', (rowid,))
                 self.conn.commit()
                 for channel in config.TELEGRAM_CHANNELS:
-                    send_message(chat_id=channel, text=row[2])
+                    # send_message(chat_id=channel, text=row[2])
+                    procced_url = process_url(row[2])
+                    send_media_post_tg(procced_url, channel)
                     time.sleep(1)
                 return row
             else:

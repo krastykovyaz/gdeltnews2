@@ -3,4 +3,4 @@ tqdm
 requests
 pandas
 dotenv
-
+pyTelegramBotAPI
