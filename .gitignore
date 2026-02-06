@@ -1,0 +1,12 @@
+venv
+*.db
+.python-version
+*.log
+__pycache__
+.DS_store
+.ipynb_checkpoints/
+gdelt_data.db-shm
+gdelt_data.db-wal
+masterfilelist.txt
+masterfilelist_translation.txt
+.env
