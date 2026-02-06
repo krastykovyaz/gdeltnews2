@@ -4,7 +4,7 @@ import os
 from dotenv import load_dotenv
 load_dotenv()
 
-TELEGRAM_CHANNEL = os.getenv('TELEGRAM_CHANNEL')
+TELEGRAM_CHANNELS = os.getenv('TELEGRAM_CHANNEL').split(',')
 TELEGRAM_TOKEN = os.getenv('TELEGRAM_TOKEN')
 
 gdelt_urls = [
@@ -16,7 +16,7 @@ YEAR = '/' + datetime.strftime(datetime.now(), "%Y%m")
 
 most_sources = os.getenv('MOST_SOURCES').split(',')
 
-KEYWORDS = os.getenv('KEYWORDS').split(',')
+KEYWORDS = [w for w in os.getenv('KEYWORDS').split(',') if len(w) > 4]
 
 # Set up logging configuration
 logging.basicConfig(

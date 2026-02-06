@@ -51,5 +51,5 @@ def send_message(chat_id: int,
 if __name__=='__main__':
     
     send_message(
-            chat_id=config.TELEGRAM_CHANNEL,
+            chat_id=config.TELEGRAM_CHANNELS[2],
         text='toto') 
