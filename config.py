@@ -5,6 +5,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 TELEGRAM_CHANNELS = os.getenv('TELEGRAM_CHANNELS').split(',')
+TELEGRAM_CHANNELS_RU = os.getenv('TELEGRAM_CHANNELS_RU').split(',')
 TELEGRAM_TOKEN = os.getenv('TELEGRAM_TOKEN')
 
 gdelt_urls = [

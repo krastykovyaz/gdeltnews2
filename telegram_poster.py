@@ -53,9 +53,10 @@ def pick_best_media(media_list):
     return best_url
 
 
-def build_telegram_post(result):
+def build_telegram_post(result, lang):
     if result["status"] == "OK":
-        text = result["en"] + '\n\nsource: ' + result["url"]
+        source = 'source' if lang == 'en' else 'Источник'
+        text = result[lang] + f'\n\n{source}: ' + result["url"]
         media_url = pick_best_media(result.get("media", []))
 
         if media_url and len(text) < 1024:
@@ -77,8 +78,8 @@ def build_telegram_post(result):
         
         
 
-def send_media_post_tg(result, channel):
-    tg_post = build_telegram_post(result)
+def send_media_post_tg(result, channel, lang):
+    tg_post = build_telegram_post(result, lang)
     if tg_post:
         if tg_post["type"] == "photo":
             bot.send_photo(
@@ -106,7 +107,7 @@ if __name__=='__main__':
             "https://www.businessinsider.com/public/assets/badges/google-play-badge.svg"
         ]
         }
-    tg_post = build_telegram_post(result)
+    tg_post = build_telegram_post(result, 'en')
 
     if tg_post["type"] == "photo":
         bot.send_photo(

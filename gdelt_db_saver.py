@@ -114,10 +114,14 @@ class GdeltDBSaver:
                 config.logging.info('Updating link %s to "posted"...', row[2])  # row[2] is the link
                 self.c.execute('UPDATE gdelt_data SET is_posted = "posted" WHERE rowid = ?', (rowid,))
                 self.conn.commit()
+                procced_url = process_url(row[2])
                 for channel in config.TELEGRAM_CHANNELS:
                     # send_message(chat_id=channel, text=row[2])
-                    procced_url = process_url(row[2])
-                    send_media_post_tg(procced_url, channel)
+                    send_media_post_tg(procced_url, channel, 'en')
+                    time.sleep(1)
+                for channel in config.TELEGRAM_CHANNELS_RU:
+                    # send_message(chat_id=channel, text=row[2])
+                    send_media_post_tg(procced_url, channel, 'ru')
                     time.sleep(1)
                 return row
             else:

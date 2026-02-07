@@ -75,10 +75,15 @@ def normalize_spaces_inplace(s: str) -> str:
 def fetch_page(url):
     
     headers = {"User-Agent": "Mozilla/5.0"}
-    html = requests.get(url, headers=headers, timeout=10).text
-    soup = BeautifulSoup(html, "html.parser")
-    text = soup.get_text(separator="\n")
-    return normalize_spaces_inplace(text)
+    for _ in range(3):
+        try:
+            html = requests.get(url, headers=headers, timeout=10).text
+            soup = BeautifulSoup(html, "html.parser")
+            text = soup.get_text(separator="\n")
+            return normalize_spaces_inplace(text)
+        except:
+            pass
+    return None
 
 
 def build_prompt(raw_text: str) -> str:
@@ -195,17 +200,20 @@ def parse_model_response(response_text: str) -> dict:
 
 def process_url(url: str) -> dict:
     raw_text = fetch_page(url)
-    media = extract_media(url)
-
-    prompt = build_prompt(raw_text)
-    if is_ollama_alive():
-        for _ in range(3):
-            model_output = call_ollama(prompt)
-            result = parse_model_response(model_output)
-            result["media"] = media
-            result['url'] = url
-            if result["status"] == 'OK':
-                return result
+    if raw_text:
+        media = extract_media(url)
+        prompt = build_prompt(raw_text)
+        if is_ollama_alive():
+            for _ in range(3):
+                try:
+                    model_output = call_ollama(prompt)
+                    result = parse_model_response(model_output)
+                    result["media"] = media
+                    result['url'] = url
+                    if result["status"] == 'OK':
+                        return result
+                except:
+                    pass
             
     return {
             "status": "Ollama ERROR",
