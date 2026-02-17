@@ -10,3 +10,5 @@ gdelt_data.db-wal
 masterfilelist.txt
 masterfilelist_translation.txt
 .env
+*.session
+stat_tg_channel.py
