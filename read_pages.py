@@ -120,8 +120,13 @@ Remove everything that is not the actual article:
 – legal text
 
 2) CONTENT CHECK
-If after cleaning there is no meaningful article content (less than 300 characters of real text) OR if the article is not related to AI, artificial intelligence, machine learning, robotics, chips, semiconductors, big tech, or modern technologies, respond EXACTLY with:
+If after cleaning there is no meaningful article content (less than 300 characters of real text)
+OR if the article is primarily political (government policy, millitary, war, regulations, sanctions, elections, geopolitical conflicts, political statements or commentary, cars, sport)
+OR if the article is primarily financial or market-oriented (talks where to invest, stock prices, quotations, market movements, investment analysis, earnings reports without technical substance, trading, speculation, macroeconomic commentary)
+OR if the article is not related to AI, artificial intelligence, machine learning, robotics, chips, semiconductors, big tech, software engineering, cybersecurity, cloud computing, data centers, quantum computing, or modern technologies,
+respond EXACTLY with:
 NO_CONTENT
+
 
 3) IF CONTENT EXISTS — PRODUCE TWO POSTS:
 A) Russian post for Telegram:
